@@ -1,3 +1,10 @@
+/// <summary>
+/// Part of Immersive Space Governance Project
+/// 
+/// Old and not being used for anything right now.  Maybe should delete?
+/// 
+/// ???--->asimonso@mit.edu
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,12 +1,12 @@
 ﻿/// <summary>
-/// Part of Immersive Space Governance Project which frankly could use a snappier name
-/// Prevents WebVR Camera from leaving the spacecraft
+/// Part of Immersive Space Governance Project
+/// 
+/// Unclear if we're actually using this anywhere?
 /// 
 /// Turns the lights on or off on a lerp.
 /// 
 /// Door Open should call this
 /// 
-/// Will fail if we start the game with the player out of bounds
 /// ???--->asimonso@mit.edu
 ///Last edited June 2021
 /// </summary>
@@ -39,7 +39,7 @@ public class DimLights : MonoBehaviour
         {
             if (fadeCounter < fadeTime)
             {
-                foreach (Light light in lights)//wow such clarity amaze/s
+                foreach (Light light in lights)
                 {
                     light.intensity = Mathf.Lerp(dark, bright, fadeCounter / fadeTime);
                 }

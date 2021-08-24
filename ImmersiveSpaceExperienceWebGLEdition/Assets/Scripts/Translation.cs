@@ -1,3 +1,4 @@
+//unclear where this is used?  It might be a predecessor to Orbit.cs which is no longer used.--followspotfour@gmail.com (formerly asimonso@mit.edu)
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

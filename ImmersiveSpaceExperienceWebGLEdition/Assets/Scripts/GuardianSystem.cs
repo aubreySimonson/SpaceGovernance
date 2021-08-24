@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Part of Immersive Space Governance Project which frankly could use a snappier name
+/// Part of Immersive Space Governance Project
 /// Prevents WebVR Camera from leaving the spacecraft
 /// We should be able to do that using rigidbodys and colliders, but for some reason that isn't working with this camera
 /// So this is our hack solution.

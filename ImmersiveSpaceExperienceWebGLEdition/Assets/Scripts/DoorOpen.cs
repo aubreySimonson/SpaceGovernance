@@ -2,11 +2,12 @@
 /// Part of Immersive Space Governance Project which frankly could use a snappier name
 /// Collider on door which tells window manager to open it when door is approached.
 /// Also controls dimming of lights in the main space, switch to threat condition.
-/// Arguably, everything related to the threat condition should go in it's own file, or this should have a better name, but *shrug*
+/// This could use some pretty aggressive refactoring.  
+/// Everything related to the threat condition lives in this file right now, and it should be in its own file
 /// The language across doors/windows could definitely be standardized...
 /// 
 /// ???--->asimonso@mit.edu
-///Last edited July 2021
+///Last edited August 2021
 /// </summary>
 
 
@@ -19,9 +20,9 @@ public class DoorOpen : MonoBehaviour
     public WindowAnimTimingManager windowManager;
     public Collider player;
     public float windowTime;//speed
-    public DimLights dimLights;
+    public DimLights dimLights;//are we actually using this?
     public bool threatCondition;//which version of the experiment is this
-    private bool threatConditionHappening = false;//are we doing the thing right now
+    private bool threatConditionHappening = false;//has the threat part of the threat condition been triggered?
     public float timeToThreat;//amount of time in seconds between door open and threat condition
     public float threatConditionDuration;
     private float doorOpenTime = 99999.9f;
@@ -31,8 +32,8 @@ public class DoorOpen : MonoBehaviour
     public GameObject satelight;
     private Color normalLighting;
     public Light[] lightsToChange;
-    public GameObject[] lightCasingsToChange;//f, these are emissive
-    public BrightnessControl[] brightnessControls;//f, these are emissive
+    public GameObject[] lightCasingsToChange;//these are emissive
+    public BrightnessControl[] brightnessControls;//these are emissive
     public Material normalColor;
     public Color normalEmissionColor;
     public float normalLightIntensity, threatLightIntensity, normalFadeTime, threatFadeTime;
@@ -47,11 +48,9 @@ public class DoorOpen : MonoBehaviour
         normalLighting = lightsToChange[0].color;
         normalLightIntensity = lightsToChange[0].intensity;
         normalFadeTime = brightnessControls[0].fadeTime;
-        //lightCasingsToChange[0].GetComponent<Renderer>().material.EnableKeyword("_EmissionColor");
         lightCasingsToChange[0].GetComponent<Renderer>().material.EnableKeyword("EMISSION");
         normalColor = lightCasingsToChange[0].GetComponent<Renderer>().material;
         normalEmissionColor = lightCasingsToChange[0].GetComponent<Renderer>().material.GetColor("_EmissionColor");
-        //emissionColor = lightCasingsToChange[0].GetComponent<Renderer>().material;//still unclear how we get at this-- shader code is scary
         if (windowTime == 0.0f)
         {
             windowTime = 30f;
@@ -60,16 +59,16 @@ public class DoorOpen : MonoBehaviour
 
     private void Update()
     {
-        if (shouldPlayWelcomeVO2 && !welcomeVO2.isPlaying && !welcomeVO1.isPlaying)
+        if (shouldPlayWelcomeVO2 && !welcomeVO2.isPlaying && !welcomeVO1.isPlaying)//has the door opened, as are we done playing VO pt 1?
         {
             welcomeVO2.Play(0);
             shouldPlayWelcomeVO2 = false;
         }
+        //the following if statement checks if this is the version with the threat condition, and if we're at the right point in time to be doing threat conditions things
         if (threatCondition && Time.time >= doorOpenTime + timeToThreat && !threatConditionHappening && !(Time.time >= doorOpenTime + timeToThreat + threatConditionDuration))
         {
             //change lighting
             float t = Mathf.PingPong(Time.time, lightChangeDuration) / lightChangeDuration;
-            //float t = Time.time - doorOpenTime / lightChangeDuration;
             foreach(Light individualLight in lightsToChange)
             {
                 individualLight.color = Color.Lerp(Color.black, Color.red, t);
@@ -93,6 +92,7 @@ public class DoorOpen : MonoBehaviour
             //start satelight motion
             satelight.SetActive(true);
         }
+        //checks if it is time to stop doing the threat condition
         if(Time.time >= doorOpenTime +timeToThreat + threatConditionDuration)
         {
             //don't set threatConditionHappening back to false, because it will immediately start again
@@ -114,9 +114,10 @@ public class DoorOpen : MonoBehaviour
             satelight.SetActive(false);
         }
     }
+
+    //the following function is really the only one that should stay in this script
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter called");
         if(other == player)
         {
             Debug.Log("Object intersected is player");

@@ -1,7 +1,7 @@
 ﻿/// <summary>
-/// Part of Immersive Space Governance Project which frankly could use a snappier name
+/// Part of Immersive Space Governance Project
 /// Manages movement of window of main room.
-/// ???--->asimonso@mit.edu
+/// ???--->asimonso@mit.edu (now followspotfour@gmail.com)
 ///Last edited March 2021
 /// </summary>
 

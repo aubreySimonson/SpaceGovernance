@@ -20,7 +20,7 @@ public class Orbit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //wow actual error handling when do we see /that/ out of your code
+        //error handling
         if(orbits == null)
         {
             Debug.LogErrorFormat("Object which orbits not set!");

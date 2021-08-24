@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/// <summary>
+/// Part of Immersive Space Governance Project
+/// Controls fade to black at end of experience.
+/// Not implemented in the scene as of 8/23/21
+/// 
+/// </summary>
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

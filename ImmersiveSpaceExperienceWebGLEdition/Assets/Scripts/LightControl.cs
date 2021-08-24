@@ -1,4 +1,11 @@
-using System.Collections;
+/// <summary>
+/// Part of Immersive Space Governance Project
+/// Controls the slow blinking of all lights in the spacecraft.  
+/// Works very closely with door open.
+/// 
+/// ???--->asimonso@mit.edu (now followspotfour@gmail.com)
+///Last edited July 2021
+/// </summary>using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
